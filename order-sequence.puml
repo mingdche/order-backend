@@ -1,0 +1,21 @@
+@startuml
+participant Client
+participant "OrderResources\n(API)" as API
+participant "OrderService\n(Application)" as AppService
+participant "OrderService\n(Domain)" as DomainService
+participant "OrderRepository" as OrderRepository
+participant "CustomerRepository" as CustomerRepository
+participant "Order" as Order
+
+Client -> API : POST /orders\n{\n  customerId: 1,\n  orderItems: [...]\n}
+API -> AppService : createOrder(1, [...])
+AppService -> DomainService : createOrder(1, [...])
+DomainService -> CustomerRepository : findById(1)
+CustomerRepository --> DomainService : Customer
+DomainService -> Order : create(Customer, [...])
+Order --> DomainService : Order
+DomainService -> OrderRepository : save(Order)
+DomainService --> AppService : OrderResponse
+AppService --> API : OrderResponse
+API --> Client : 201 Created\nOrderResponse
+@enduml
