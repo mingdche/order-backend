@@ -22,10 +22,11 @@ public class OrderItem {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
+    @JoinColumn(name = "service_id")
+    private MeetingService service;
 
     private int quantity;
+
     private double price;
 
     @ManyToOne

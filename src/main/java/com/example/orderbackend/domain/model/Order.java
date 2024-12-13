@@ -1,20 +1,12 @@
 package com.example.orderbackend.domain.model;
 
-import java.util.ArrayList;
-import java.util.List;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
@@ -26,28 +18,27 @@ public class Order {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
+    @JoinColumn(name = "member_id")
+    private Member member;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Shipment shipment;
-
     private OrderStatus status;
-
     private Date orderDate;
 
-    public static Order create(Customer customer, List<OrderItem> orderItems) {
+    public static Order create(Member member, List<OrderItem> orderItems) {
         Order order = new Order();
-        order.setCustomer(customer);
+        order.setMember(member);
         order.setOrderItems(orderItems);
-        order.setStatus(OrderStatus.PENDING);
         return order;
     }
 
-    public Date getOrderDate() {
-        return orderDate;
+    public Member getMember() {
+        return member;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
     }
 }

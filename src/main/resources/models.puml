@@ -1,0 +1,83 @@
+@startuml
+
+class Member {
+    - id: Long
+    - name: String
+    - email: String
+}
+
+enum SubscriptionType {
+    MONTHLY
+    DATE_RANGE
+}
+
+class Subscription {
+    - id: Long
+    - member: Member
+    - meetingService: MeetingService
+    - type: SubscriptionType
+    - monthlyDuration: Integer
+    - startDate: Date
+    - endDate: Date
+}
+
+class Order {
+    - id: Long
+    - member: Member
+    - status: OrderStatus
+    - orderItems: List<OrderItem>
+    - subscription: Subscription
+}
+
+class OrderItem {
+    - id: Long
+    - meetingService: MeetingService
+    - quantity: Integer
+}
+
+class MeetingService {
+    - id: Long
+    - name: String
+    - description: String
+}
+
+class OrderStatus {
+    - id: Long
+    - name: String
+}
+
+class Payment {
+    - id: Long
+    - order: Order
+    - amount: BigDecimal
+    - paymentDate: Date
+}
+
+class Entitlement {
+    - id: Long
+    - subscription: Subscription
+    - meetingService: MeetingService
+    - duration: Integer
+    - consumedDuration: Integer
+}
+
+class ConsumptionRecord {
+    - id: Long
+    - entitlement: Entitlement
+    - consumedDuration: Integer
+    - consumptionDate: Date
+}
+
+Member "1" -- "*" Subscription
+Subscription "1" -- "1" MeetingService
+Order "1" -- "*" OrderItem
+OrderItem "1" -- "1" MeetingService
+Order "1" -- "1" Member
+Order "1" -- "1" Subscription
+Order "1" -- "1" OrderStatus
+Order "1" -- "*" Payment
+Subscription "1" -- "1" Entitlement
+Entitlement "1" -- "1" MeetingService
+Entitlement "1" -- "*" ConsumptionRecord
+
+@enduml
