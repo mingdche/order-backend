@@ -1,23 +1,43 @@
 package com.example.orderbackend.domain.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import java.time.LocalDate;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "subscriptions")
 @Data
-@NoArgsConstructor
 public class Subscription {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    private LocalDate startDate;
-    private LocalDate endDate;
+
+    @Enumerated(EnumType.STRING)
+    private SubscriptionType type;
+
+    @OneToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    @OneToMany
+    @JoinColumn(name = "meeting_service_id")
+    private List<MeetingService> meetingServices;
+
+    @OneToOne
+    private Order order;
+
+    public Order createOrder() {
+        Order newOrder = new Order();
+        newOrder.setMember(this.member);
+        List<OrderItem> orderItems = new ArrayList<>();
+        for (MeetingService meetingService : meetingServices) {
+            OrderItem orderItem = new OrderItem();
+            orderItem.setMeetingService(meetingService);
+            orderItems.add(orderItem);
+        }
+        newOrder.setOrderItems(orderItems);
+        this.order = newOrder;
+        return newOrder;
+    }
 }

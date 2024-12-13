@@ -1,24 +1,24 @@
 package com.example.orderbackend.domain.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
-@Table(name = "meeting_services")
-@NoArgsConstructor
+@Data
 public class MeetingService {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
-
     private String description;
-    private double price;
+
+    @OneToMany(mappedBy = "meetingService")
+    private List<OrderItem> orderItems;
+
+    @OneToOne(mappedBy = "meetingService")
+    private Subscription subscription;
+
+    // Getters and setters
 }

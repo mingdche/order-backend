@@ -3,21 +3,22 @@ package com.example.orderbackend.domain.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
 @Entity
-@Table(name = "order_items")
 @Data
-public class OrderItem {
+public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "meeting_service_id")
-    private MeetingService meetingService;
-
-    private Integer quantity;
-
-    @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
+
+    private BigDecimal amount;
+    private LocalDate paymentDate;
+
+    // Getters and setters
 }

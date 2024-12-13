@@ -3,22 +3,23 @@ package com.example.orderbackend.domain.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.List;
-
 @Entity
 @Data
-public class Member {
+public class Entitlement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String email;
 
-    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
+    @OneToOne
+    @JoinColumn(name = "subscription_id")
     private Subscription subscription;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<Order> orders;
+    @OneToOne
+    @JoinColumn(name = "meeting_service_id")
+    private MeetingService meetingService;
+
+    private Integer duration;
+    private Integer consumedDuration;
 
     // Getters and setters
 }

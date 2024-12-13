@@ -69,7 +69,7 @@ class ConsumptionRecord {
 }
 
 Member "1" -- "*" Subscription
-Subscription "1" -- "1" MeetingService
+Subscription "1" -- "*" MeetingService
 Order "1" -- "*" OrderItem
 OrderItem "1" -- "1" MeetingService
 Order "1" -- "1" Member

@@ -1,8 +1,15 @@
 package com.example.orderbackend.domain.model;
 
-public enum OrderStatus {
-    PENDING,
-    PROCESSING,
-    DELIVERED,
-    CANCELLED
+import jakarta.persistence.*;
+import lombok.Data;
+
+@Entity
+@Data
+public class OrderStatus {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+
+    // Getters and setters
 }
