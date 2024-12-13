@@ -27,6 +27,10 @@ public class Subscription {
     @OneToOne
     private Order order;
 
+    /**
+     * 从订阅中创建订单
+     * @return
+     */
     public Order createOrder() {
         Order newOrder = new Order();
         newOrder.setMember(this.member);

@@ -9,7 +9,8 @@ The order-backend is designed to provide a comprehensive solution for e-commerce
 
 Key features of this application include:
 - Order processing and tracking
-- Shipment management
+- Subscription management
+- Comsuption management 
 
 The application leverages Spring Boot 3.2.3 and Java 17, providing a modern and efficient foundation for building enterprise-grade applications. It also includes Spring Data JPA for data persistence, allowing for easy interaction with the underlying database.
 
@@ -42,7 +43,6 @@ order-backend/
 ### Key Files:
 - `OrderBackendApplication.java`: The main entry point for the Spring Boot application.
 - `Dockerfile`: Contains instructions for building a Docker image of the application.
-- `locustfile.py`: Defines load testing scenarios using Locust.
 - `pom.xml`: Maven project configuration file specifying dependencies and build settings.
 
 ### Important Integration Points:
