@@ -3,6 +3,7 @@ package com.example.orderbackend.domain.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +34,8 @@ public class Subscription {
      */
     public Order createOrder() {
         Order newOrder = new Order();
+        newOrder.setOrderDate(LocalDate.now());
+        newOrder.setStatus(OrderStatus.PENDING);
         newOrder.setMember(this.member);
         List<OrderItem> orderItems = new ArrayList<>();
         for (MeetingService meetingService : meetingServices) {
@@ -41,6 +44,7 @@ public class Subscription {
             orderItems.add(orderItem);
         }
         newOrder.setOrderItems(orderItems);
+        newOrder.setSubscription(this);
         this.order = newOrder;
         return newOrder;
     }
