@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ * 这个是创建订单应用服务类
+ */
 @Service
 public class OrderPlacementService {
     
