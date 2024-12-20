@@ -6,8 +6,20 @@ import lombok.Data;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * 订阅代表对一些会议服务的周期性购买
+ * 
+ * 目前订阅有两种形式，一种是按月订阅，一种是按时间区间
+ * 
+ * 按月的订阅根据开始日期，每个月进行订单生成，
+ *      例如开始时间是某个月份的第一天，那么它会在每个月的第一天生成订单并自动支付
+ * 按时间区间的订阅只生成一个订单，用户支付订单后订阅生效，用户可以在订阅开始日期之后，结束日期之前使用订阅的服务
+ *      例如开始时间是某个月份的第一天，结束时间是某个月份的最后一天，那么它只会在开始日期生成订单并自动支付，结束日期之前用户可以使用订阅的服务
+ *      
+ * 
+ */
 @Entity
+@Table(name = "subscriptions")
 @Data
 public class Subscription {
     @Id
@@ -25,8 +37,12 @@ public class Subscription {
     @JoinColumn(name = "meeting_service_id")
     private List<MeetingService> meetingServices;
 
-    @OneToOne
-    private Order order;
+    private LocalDate startDate;
+
+    private LocalDate endDate;
+
+    @OneToMany(mappedBy = "subscription", cascade = CascadeType.ALL)
+    private List<Order> orders = new ArrayList<>();
 
     /**
      * 从订阅中创建订单
@@ -45,7 +61,7 @@ public class Subscription {
         }
         newOrder.setOrderItems(orderItems);
         newOrder.setSubscription(this);
-        this.order = newOrder;
+        orders.add(newOrder);
         return newOrder;
     }
 }

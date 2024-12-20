@@ -26,8 +26,7 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "subscription_id")
     private Subscription subscription;
-   
 }

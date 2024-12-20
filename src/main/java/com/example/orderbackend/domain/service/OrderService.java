@@ -1,9 +1,8 @@
 package com.example.orderbackend.domain.service;
 
 import com.example.orderbackend.domain.model.Order;
-import com.example.orderbackend.domain.model.OrderItem;
-import com.example.orderbackend.domain.model.Member;
 import com.example.orderbackend.domain.model.OrderStatus;
+import com.example.orderbackend.domain.repository.MemberRepository;
 import com.example.orderbackend.domain.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +22,9 @@ public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private MemberRepository memberRepository;
+
     /**
      * 创建新订单
      *
@@ -30,19 +32,9 @@ public class OrderService {
      * @param orderItems 订单项列表
      * @return 新创建的订单
      */
-    public Order createOrder(Long memberId, List<OrderItem> orderItems) {
-        Order order = new Order();
+    public Order createOrder(Order order) {
         order.setOrderDate(LocalDate.now());
         order.setStatus(OrderStatus.PENDING);
-
-        // 设置会员信息
-        Member member = new Member();
-        member.setId(memberId);
-        order.setMember(member);
-
-        // 设置订单项
-        order.setOrderItems(orderItems);
-
         return orderRepository.save(order);
     }
 
