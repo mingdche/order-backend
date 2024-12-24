@@ -6,6 +6,7 @@ import lombok.Data;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * 订阅代表对一些会议服务的周期性购买
  * 
@@ -33,8 +34,7 @@ public class Subscription {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany
-    @JoinColumn(name = "meeting_service_id")
+    @OneToMany(mappedBy = "subscription")
     private List<MeetingService> meetingServices;
 
     private LocalDate startDate;

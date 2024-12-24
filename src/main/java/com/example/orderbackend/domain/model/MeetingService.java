@@ -17,7 +17,8 @@ public class MeetingService {
     @OneToMany(mappedBy = "meetingService")
     private List<OrderItem> orderItems;
 
-    @OneToOne(mappedBy = "meetingService")
+    @ManyToOne
+    @JoinColumn(name = "subscription_id")
     private Subscription subscription;
 
     // Getters and setters

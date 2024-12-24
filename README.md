@@ -1,16 +1,15 @@
 # Spring Boot Order Management Backend
 
-This project is a robust Spring Boot application for managing customer orders, products, and shipments.
+This project is a robust Spring Boot application for managing customer orders, meeting services, and payments.
 
 The order-backend is designed to provide a comprehensive solution for e-commerce businesses to handle their order processing workflow. It offers a set of RESTful APIs that allow for the creation, retrieval, updating, and deletion of orders, and shipments. The application is built with a focus on scalability and maintainability, following domain-driven design principles and a clean architecture approach.
-
-
 
 
 Key features of this application include:
 - Order processing and tracking
 - Subscription management
 - Comsuption management 
+- Payment managment
 
 The application leverages Spring Boot 3.2.3 and Java 17, providing a modern and efficient foundation for building enterprise-grade applications. It also includes Spring Data JPA for data persistence, allowing for easy interaction with the underlying database.
 
@@ -76,24 +75,6 @@ Steps:
    java -jar target/order-backend-0.0.1-SNAPSHOT.jar
    ```
 
-### Getting Started
-
-Once the application is running, you can interact with it using HTTP requests to the exposed endpoints. Here are some example curl commands:
-
-1. Create a new customer:
-   ```
-   curl -X POST http://localhost:8080/customers -H "Content-Type: application/json" -d '{"name":"John Doe","email":"john@example.com","address":"123 Main St","username":"johndoe","password":"password123"}'
-   ```
-
-2. Get all orders:
-   ```
-   curl http://localhost:8080/orders
-   ```
-
-3. Create a new order:
-   ```
-   curl -X POST http://localhost:8080/orders -H "Content-Type: application/json" -d '{"customerId":1,"items":[{"productId":1,"quantity":2}]}'
-   ```
 
 ### Configuration Options
 

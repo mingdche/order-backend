@@ -20,10 +20,10 @@ public class OrderPlacementService {
     @Autowired
     private OrderService orderService;
 
-    public void placeOrder(OrderRequest request) {
+    public Order placeOrder(OrderRequest request) {
         try {
             Order order = OrderRequest.toOrder(request);
-            orderService.createOrder(order);
+            return orderService.createOrder(order);
         } catch (Exception e) {
             logger.error("Failed to place order: {}", request, e);
             throw new RuntimeException("Failed to place order", e);

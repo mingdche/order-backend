@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class OrderBackendApplication {
 
     /**
-     * 这个一个方法注释
+     * Springboot的入口
      * @param args
      */
     public static void main(String[] args) {

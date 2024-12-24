@@ -2,13 +2,11 @@ package com.example.orderbackend.domain.service;
 
 import com.example.orderbackend.domain.model.Order;
 import com.example.orderbackend.domain.model.OrderStatus;
-import com.example.orderbackend.domain.repository.MemberRepository;
 import com.example.orderbackend.domain.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -22,14 +20,10 @@ public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
 
-    @Autowired
-    private MemberRepository memberRepository;
-
     /**
      * 创建新订单
      *
-     * @param memberId 会员ID
-     * @param orderItems 订单项列表
+     * @param order 新订单对象
      * @return 新创建的订单
      */
     public Order createOrder(Order order) {
@@ -48,15 +42,7 @@ public class OrderService {
         return orderRepository.findById(orderId);
     }
 
-    /**
-     * 根据会员ID查询订单列表
-     *
-     * @param memberId 会员ID
-     * @return 订单列表
-     */
-    public List<Order> getOrdersByMemberId(Long memberId) {
-        return orderRepository.findByMemberId(memberId);
-    }
+    
 
     /**
      * 更新订单
@@ -66,14 +52,5 @@ public class OrderService {
      */
     public Order updateOrder(Order order) {
         return orderRepository.save(order);
-    }
-
-    /**
-     * 删除订单
-     *
-     * @param orderId 订单ID
-     */
-    public void deleteOrder(Long orderId) {
-        orderRepository.deleteById(orderId);
     }
 }

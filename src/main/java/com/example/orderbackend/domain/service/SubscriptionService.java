@@ -5,17 +5,12 @@ import com.example.orderbackend.domain.repository.SubscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 public class SubscriptionService {
 
-    private final SubscriptionRepository subscriptionRepository;
-
     @Autowired
-    public SubscriptionService(SubscriptionRepository subscriptionRepository) {
-        this.subscriptionRepository = subscriptionRepository;
-    }
+    private SubscriptionRepository subscriptionRepository;
 
     public Subscription createSubscription(Subscription subscription) {
         return subscriptionRepository.save(subscription);
@@ -25,9 +20,6 @@ public class SubscriptionService {
         return subscriptionRepository.save(subscription);
     }
 
-    public void deleteSubscription(Long id) {
-        subscriptionRepository.deleteById(id);
-    }
 
     public Subscription getSubscriptionById(Long id) {
         return subscriptionRepository.findById(id).orElse(null);
