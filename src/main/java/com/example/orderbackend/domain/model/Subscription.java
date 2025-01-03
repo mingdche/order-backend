@@ -2,6 +2,7 @@ package com.example.orderbackend.domain.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import java.util.List;
 @Entity
 @Table(name = "subscriptions")
 @Data
+@NoArgsConstructor
 public class Subscription {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +37,7 @@ public class Subscription {
     private Member member;
 
     @OneToMany(mappedBy = "subscription")
-    private List<MeetingService> meetingServices;
+    private List<MeetingService> meetingServices = new ArrayList<>();
 
     private LocalDate startDate;
 
